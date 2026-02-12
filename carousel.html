@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-/* Menghapus margin default agar benar-benar memenuhi layar */
+/* Menghapus semua margin default agar benar-benar penuh */
 * {box-sizing: border-box}
 body, html {
   margin: 0;
@@ -11,31 +11,33 @@ body, html {
   height: 100%;
   width: 100%;
   overflow: hidden; /* Mencegah scrollbar muncul */
-  background-color: #000; /* Latar hitam agar terlihat sinematik */
+  background-color: #000; /* Latar hitam untuk sisa layar */
 }
 
 .slideshow-container {
   width: 100vw;   /* 100% Lebar layar */
   height: 100vh;  /* 100% Tinggi layar */
   position: relative;
-  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mySlides {
   display: none;
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
-/* Mengatur gambar agar Full Screen tanpa terpotong */
+/* Mengatur gambar agar memenuhi layar secara proporsional */
 img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Ganti ke 'cover' jika ingin gambar memenuhi layar tanpa sisa hitam, tapi teks mungkin terpotong */
+  object-fit: contain; /* 'contain' agar gambar tidak terpotong, 'cover' jika ingin benar-benar penuh tanpa sisa hitam */
   vertical-align: middle;
 }
 
-/* Tombol navigasi */
+/* Tombol navigasi melayang */
 .prev, .next {
   cursor: pointer;
   position: absolute;
@@ -54,17 +56,17 @@ img {
   z-index: 10;
 }
 
-.next { right: 20px; }
-.prev { left: 20px; }
+.next { right: 30px; }
+.prev { left: 30px; }
 
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }
 
-/* Container untuk titik indikator (dots) */
+/* Titik indikator di bawah */
 .dot-container {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   width: 100%;
   text-align: center;
   z-index: 10;
@@ -85,7 +87,7 @@ img {
   background-color: #006837; /* Hijau Pegadaian */
 }
 
-/* Efek Fade Animasi */
+/* Efek Fade */
 .fade {
   animation-name: fade;
   animation-duration: 1s;
@@ -155,8 +157,7 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 
-  // Autoplay setiap 4 detik
-  timer = setTimeout(() => plusSlides(1), 4000); 
+  timer = setTimeout(() => plusSlides(1), 5000); // 5 detik per slide
 }
 </script>
 

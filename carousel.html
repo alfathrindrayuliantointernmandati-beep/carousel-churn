@@ -3,58 +3,98 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+/* Menghapus margin default agar benar-benar memenuhi layar */
 * {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0; background-color: #f4f4f4;}
-.mySlides {display: none}
-img {vertical-align: middle; border-radius: 10px;}
-
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-  margin-top: 20px;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Mencegah scrollbar muncul */
+  background-color: #000; /* Latar hitam agar terlihat sinematik */
 }
 
+.slideshow-container {
+  width: 100vw;   /* 100% Lebar layar */
+  height: 100vh;  /* 100% Tinggi layar */
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+
+/* Mengatur gambar agar Full Screen tanpa terpotong */
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ganti ke 'cover' jika ingin gambar memenuhi layar tanpa sisa hitam, tapi teks mungkin terpotong */
+  vertical-align: middle;
+}
+
+/* Tombol navigasi */
 .prev, .next {
   cursor: pointer;
   position: absolute;
   top: 50%;
   width: auto;
-  padding: 16px;
-  margin-top: -22px;
+  padding: 20px;
+  margin-top: -30px;
   color: white;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 25px;
   transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  border-radius: 50%;
   user-select: none;
-  background-color: rgba(0,0,0,0.3);
-  text-decoration: none; /* Menghilangkan garis bawah link */
+  background-color: rgba(0,0,0,0.5);
+  text-decoration: none;
+  z-index: 10;
 }
 
-.next { right: 0; border-radius: 3px 0 0 3px; }
-.prev { left: 0; border-radius: 3px 0 0 3px; } /* Tambahan posisi kiri */
-.prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+.next { right: 20px; }
+.prev { left: 20px; }
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Container untuk titik indikator (dots) */
+.dot-container {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
 
 .dot {
   cursor: pointer;
-  height: 13px;
-  width: 13px;
-  margin: 0 2px;
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover { background-color: #006837; }
+.active, .dot:hover {
+  background-color: #006837; /* Hijau Pegadaian */
+}
 
+/* Efek Fade Animasi */
 .fade {
   animation-name: fade;
   animation-duration: 1s;
 }
 
-@keyframes fade { from {opacity: .4} to {opacity: 1} }
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
 </style>
 </head>
 <body>
@@ -62,38 +102,35 @@ img {vertical-align: middle; border-radius: 10px;}
 <div class="slideshow-container">
   <div class="mySlides fade">
     <a href="https://drive.google.com/file/d/1hotGaqFXfF85yfuUbcrMJEdhRp_QO74g/view?usp=sharing" target="_blank">
-      <img src="SOLUSI DAN STRATEGI COUNTER CHURN DAN WIN BACK MARKET SHARE.png" style="width:100%">
+      <img src="SOLUSI DAN STRATEGI COUNTER CHURN DAN WIN BACK MARKET SHARE.png">
     </a>
   </div>
 
   <div class="mySlides fade">
     <a href="https://drive.google.com/file/d/1hotGaqFXfF85yfuUbcrMJEdhRp_QO74g/view?usp=sharing" target="_blank">
-      <img src="3.png" style="width:100%">
+      <img src="3.png">
     </a>
   </div>
 
   <a class="prev" onclick="plusSlides(-1)">❮</a>
   <a class="next" onclick="plusSlides(1)">❯</a>
-</div>
-<br>
 
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
+  <div class="dot-container">
+    <span class="dot" onclick="currentSlide(1)"></span> 
+    <span class="dot" onclick="currentSlide(2)"></span> 
+  </div>
 </div>
 
 <script>
-let slideIndex = 1; // Mulai dari slide pertama
+let slideIndex = 1;
 let timer;
 
 showSlides(slideIndex);
 
-// Fungsi tombol Next/Prev
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
-// Fungsi klik pada dot
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
@@ -103,32 +140,25 @@ function showSlides(n) {
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");
   
-  // Hapus timer setiap kali fungsi dipanggil manual agar tidak tumpang tindih
   clearTimeout(timer);
 
-  // Jika index melebihi jumlah slide, kembali ke awal
   if (n > slides.length) {slideIndex = 1}    
-  // Jika index kurang dari 1, pergi ke slide terakhir (Fungsi Back)
   if (n < 1) {slideIndex = slides.length}
 
-  // Sembunyikan semua slide
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
-  // Matikan semua status active pada dot
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
 
-  // Tampilkan slide yang aktif
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 
-  // Jalankan autoplay otomatis setiap 4 detik
+  // Autoplay setiap 4 detik
   timer = setTimeout(() => plusSlides(1), 4000); 
 }
 </script>
 
 </body>
 </html>
-

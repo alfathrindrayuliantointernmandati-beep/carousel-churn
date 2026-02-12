@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0; background-color: #f4f4f4;}
+.mySlides {display: none}
+img {vertical-align: middle; border-radius: 10px;}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.3);
+  text-decoration: none; /* Menghilangkan garis bawah link */
+}
+
+.next { right: 0; border-radius: 3px 0 0 3px; }
+.prev { left: 0; border-radius: 3px 0 0 3px; } /* Tambahan posisi kiri */
+.prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+
+.dot {
+  cursor: pointer;
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover { background-color: #006837; }
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1s;
+}
+
+@keyframes fade { from {opacity: .4} to {opacity: 1} }
+</style>
+</head>
+<body>
+
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <a href="https://drive.google.com/file/d/1hotGaqFXfF85yfuUbcrMJEdhRp_QO74g/view?usp=sharing" target="_blank">
+      <img src="https://lh3.googleusercontent.com/sitesv/APaQ0STadNhCXWQll2ZLMOlnythI3LylvnVLNeHljD-YfIHy33zkKsndEil0sDhVvnkR5pi4LgY0KgkJjUbAPgX8iDK2ZdXTYnXK3SkTLwE8nlzRhZ9mhMf7lapbW6Pt8M2oBR0B-SFN98h3kzcfm8kCvpw6MtCPSOG2n0b7NsnpG-ndkHCuAc9xHhwtmda0_Y8wR7NSBPqgeIoHy4IOHJUIba8rTETYU2AoFZQDPyg=w1280" style="width:100%">
+    </a>
+  </div>
+
+  <div class="mySlides fade">
+    <a href="https://link-tujuan-2.com" target="_blank">
+      <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SRu-77pGqapNePU0V5EluOedQLbmEfDaH1_LQzLXjCMgA5CgjYKVuWAVbGBZE7q7tsL4bIVEbRtLrHmu7FP1P8vgj94B5eYzs_Y8wcvBEVnxJQlwZMep5MKAm6G7gBJpD0W2ZLdUDlIdUfNKZIKTyrQXJAsJXEVUuNUlVTFZ1wcQI97zfNL90ZKYYolh3DCJg-Mr4EeMmZJafCPUrwc8cdx4zaMhMp_OrCW0WM=w1280" style="width:100%">
+    </a>
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+</div>
+
+<script>
+let slideIndex = 1; // Mulai dari slide pertama
+let timer;
+
+showSlides(slideIndex);
+
+// Fungsi tombol Next/Prev
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Fungsi klik pada dot
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  
+  // Hapus timer setiap kali fungsi dipanggil manual agar tidak tumpang tindih
+  clearTimeout(timer);
+
+  // Jika index melebihi jumlah slide, kembali ke awal
+  if (n > slides.length) {slideIndex = 1}    
+  // Jika index kurang dari 1, pergi ke slide terakhir (Fungsi Back)
+  if (n < 1) {slideIndex = slides.length}
+
+  // Sembunyikan semua slide
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  // Matikan semua status active pada dot
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+
+  // Tampilkan slide yang aktif
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+
+  // Jalankan autoplay otomatis setiap 4 detik
+  timer = setTimeout(() => plusSlides(1), 4000); 
+}
+</script>
+
+</body>
+</html>
